@@ -32,7 +32,7 @@ npm install
 ## Запуск
 Для запуска локального сервера:
 ```
-npm run dev
+node index
 ```
 После этого нужно в браузере перейти на [localhost:3000](localhost:3000).
 
