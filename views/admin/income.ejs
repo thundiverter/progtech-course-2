@@ -1,0 +1,32 @@
+<ul class="nav nav-underline mb-4">
+    <li class="nav-item">
+        <a href="/" class="nav-link">Сотрудники</a>
+    </li>
+    <li class="nav-item">
+        <a href="/menu" class="nav-link">Меню</a>
+    </li>
+    <li class="nav-item">
+        <a href="/components" class="nav-link">Заказ компонентов</a>
+    </li>
+    <li class="nav-item">
+        <a href="/income" class="nav-link active">Выручка</a>
+    </li>
+</ul>
+
+
+<table class="table align-middle my-4">
+    <thead>
+        <tr>
+            <th scope="col">Дата</th>
+            <th scope="col">Выручка</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let day of data) { %>
+        <tr>
+            <td><%= day.date.split("-").join(".") %></td>
+            <td><%= day.summa %> ₽</td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>

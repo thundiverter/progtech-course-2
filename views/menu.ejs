@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Меню</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script defer src="/js/bootstrap.min.js"></script>
+    </head>
+    <body class="mx-auto my-5" style="max-width: 640px;">
+
+        <div class="container d-flex justify-content-end p-1">
+            <a href="/login" class="btn btn-sm btn-outline-secondary">Войти</a>
+        </div>
+
+        <div class="container-sm">
+            <div class="d-flex justify-content-center flex-column p-1">
+                <h1 class="display-6 text-center mt-4">Меню на сегодня</h1>
+
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">Напиток</th>
+                            <th scope="col">Состав</th>
+                            <th scope="col">Цена за шт.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let item of menu) { %>
+                        <tr>
+                            <td><%= drinks.find((d) => d.id == item.drinkid).name %></td>
+                            <td><%= drinks.find((d) => d.id == item.drinkid).components %></td>
+                            <td><%= drinks.find((d) => d.id == item.drinkid).price %> ₽</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

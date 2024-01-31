@@ -1,0 +1,47 @@
+<ul class="nav nav-underline mb-4">
+    <li class="nav-item">
+        <a href="/" class="nav-link">Сотрудники</a>
+    </li>
+    <li class="nav-item">
+        <a href="/menu" class="nav-link">Меню</a>
+    </li>
+    <li class="nav-item">
+        <a href="/components" class="nav-link active">Заказ компонентов</a>
+    </li>
+    <li class="nav-item">
+        <a href="/income" class="nav-link">Выручка</a>
+    </li>
+</ul>
+
+<form method="post" action="/add-component" class="d-flex align-items-end gap-2">
+    <div>
+        <label for="name">Название компонента</label>
+        <input type="text" class="form-control" name="name" id="name" required>
+    </div>
+    <div>
+        <label for="amount">Кол-во</label>
+        <input type="number" class="form-control" name="amount" id="amount" min="1" value="1"  required>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Заказать</button>
+    </div>
+</form>
+
+<table class="table align-middle my-4">
+    <thead>
+        <tr>
+            <th scope="col">Компонент</th>
+            <th scope="col">Кол-во</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let item of data) { %>
+        <tr>
+            <td><%= item.name %></td>
+            <td><%= item.amount %></td>
+            <td><form method="post" action="/delete-component"><input type="text" hidden name="orderid" id="orderid" value="<%= item.id %>"><button class="btn btn-outline-primary" type="submit">X</button></form></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>

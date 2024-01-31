@@ -1,0 +1,31 @@
+<ul class="nav nav-underline mb-4">
+    <li class="nav-item">
+        <a href="/" class="nav-link active">Напитки</a>
+    </li>
+    <li class="nav-item">
+        <a href="/orders" class="nav-link">Заказы</a>
+    </li>
+</ul>
+
+<a class="btn btn-primary" href="/new-drink">Новый напиток</a>
+
+<table class="table align-middle my-4">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Состав</th>
+            <th scope="col">Стоимость</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let drink of data) {%>
+        <tr>
+            <td><%= drink.name %></td>
+            <td><%= drink.components %></td>
+            <td><%= drink.price %> ₽</td>
+            <td><form method="post" action="/delete-drink"><input type="text" hidden name="name" id="name" value="<%= drink.name %>"><button class="btn btn-outline-primary" type="submit">X</button></form></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>

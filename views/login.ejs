@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Вход</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script defer src="/js/bootstrap.min.js"></script>
+    </head>
+    <body class="mx-auto my-5">
+
+        <div class="container-sm" style="max-width: 640px;">
+            <div class="d-flex justify-content-center flex-column p-1">
+                <h1 class="display-6 text-center">Вход в аккаунт</h1>
+
+                <div id="error" data-error="user" class="alert alert-warning my-2">
+                    Пользователь не найден
+                </div>
+                <div id="error" data-error="password" class="alert alert-warning my-2">
+                    Неправильный пароль
+                </div>
+
+                <form method="post" action="/login">
+                    <div class="my-3">
+                        <label for="username">Логин</label>
+                        <input class="form-control" type="text" name="username" id="username">
+                    </div>
+                    <div class="my-3">
+                        <label for="password">Пароль</label>
+                        <input class="form-control" type="password" name="password" id="password">
+                    </div>
+                    <div class="my-3">
+                        <button class="btn btn-primary text-center w-100" type="submit">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>
+
+<script>
+    const error = document.querySelectorAll("#error");
+    const params = new URLSearchParams(window.location.search);
+    if (error) {
+        error.forEach((e) => {
+            e.style.display = "none";
+            if (params.get("error") == e.dataset.error) {
+                e.style.display = "block";
+            }
+        });
+    }
+</script>

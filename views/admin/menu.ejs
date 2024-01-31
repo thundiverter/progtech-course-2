@@ -1,0 +1,36 @@
+<ul class="nav nav-underline mb-4">
+    <li class="nav-item">
+        <a href="/" class="nav-link">Сотрудники</a>
+    </li>
+    <li class="nav-item">
+        <a href="/menu" class="nav-link active">Меню</a>
+    </li>
+    <li class="nav-item">
+        <a href="/components" class="nav-link">Заказ компонентов</a>
+    </li>
+    <li class="nav-item">
+        <a href="/income" class="nav-link">Выручка</a>
+    </li>
+</ul>
+
+<a href="/add-menu" class="btn btn-primary">Добавить напиток в меню</a>
+
+<table class="table align-middle my-4">
+    <thead>
+        <tr>
+            <th scope="col">Напиток</th>
+            <th scope="col">Состав</th>
+            <th scope="col">Цена за шт.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let item of data.menu) { %>
+        <tr>
+            <td><%= data.drinks.find((e) => e.id == item.drinkid).name %></td>
+            <td><%= data.drinks.find((e) => e.id == item.drinkid).components %></td>
+            <td><%= data.drinks.find((e) => e.id == item.drinkid).price %> ₽</td>
+            <td><form method="post" action="/delete-menu"><input type="text" hidden name="drinkid" id="drinkid" value="<%= item.id %>"><button class="btn btn-outline-primary" type="submit">X</button></form></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>

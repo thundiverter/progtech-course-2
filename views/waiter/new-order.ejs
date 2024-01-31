@@ -1,0 +1,88 @@
+<h4>Новый заказ</h4>
+
+<form method="post" action="/new-order">
+
+    <table class="table" id="drinks-table">
+        <thead>
+            <tr>
+                <th scope="col">Напиток</th>
+                <th scope="col">Кол-во</th>
+                <th scope="col">Стоимость</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="new-drink-form" class="card my-4">
+        <div class="card-body">
+            <h5 class="card-title">Добавить напиток</h5>
+            <div class="mb-3">
+                <label for="new-drink">Напиток</label>
+                <select class="form-control" name="new-drink" id="new-drink">
+                    <% for (let drink of data.drinks) { %>
+                        <option value="<%= drink.id %>"><%= drink.name %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="new-amount">Количество</label>
+                <input type="number" class="form-control" name="new-amount" id="new-amount" value="1" min="1">
+            </div>
+            <div class="mb-3">
+                <button type="button" id="new-drink-btn" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="d-flex gap-2 my-4">
+        <input type="text" hidden id="formList" name="formList" value="[]">
+        <button class="btn btn-primary w-50" type="submit">Сохранить</button>
+        <a href="/" class="btn btn-outline-primary w-50">Назад</a>
+    </div>
+</form>
+
+<script>
+    const newDrinkBtn = document.querySelector("#new-drink-btn");
+    const newDrinkID = document.querySelector("#new-drink");
+    const newDrinkAmount = document.querySelector("#new-amount");
+    const drinksTable = document.querySelector("#drinks-table tbody");
+    const formListInput = document.querySelector("#formList");
+    let orderedDrinks = [];
+    const drinksDB = <%- JSON.stringify(data.drinks) %>;
+    console.log(drinksDB);
+
+    newDrinkBtn.addEventListener("click", () => {
+        orderedDrinks.push({
+            id: newDrinkID.value,
+            amount: newDrinkAmount.value
+        });
+        updateTable();
+    });
+
+    function removeDrink(index) {
+        orderedDrinks.splice(index, 1);
+        updateTable();
+    }
+
+    function updateTable() {
+        let res = "";
+        let total = 0;
+        for (let drink of orderedDrinks) {
+            res += `<tr>
+                <td>${drinksDB.find((d) => d.id == drink.id).name}</td>
+                <td>${drink.amount}</td>
+                <td>${drinksDB.find((d) => d.id == drink.id).price * drink.amount} ₽</td>
+                <td><form><button type="button" onclick="removeDrink(${orderedDrinks.indexOf(drink)})" class="btn btn-sm btn-outline-primary">X</button></form></td>
+            </tr>`;
+            total += drinksDB.find((d) => d.id == drink.id).price * drink.amount;
+        }
+        res += `<tr>
+                <td colspan="3">Итого</td>
+                <td><b>${total} ₽</b></td>
+            </tr>`;
+        drinksTable.innerHTML = res;
+        formListInput.value = JSON.stringify(orderedDrinks);
+    }
+</script>

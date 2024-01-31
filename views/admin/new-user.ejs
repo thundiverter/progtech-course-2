@@ -1,0 +1,36 @@
+<h4>Новый пользователь</h4>
+
+<div id="error" data-error="user" class="alert alert-warning my-2">
+    Пользователь уже существует
+</div>
+
+<form method="post" action="/new-user">
+    <div class="my-3">
+        <label for="username">Логин</label>
+        <input class="form-control" type="text" name="username" id="username" required>
+    </div>
+    <div class="my-3">
+        <label for="username">Пароль</label>
+        <input class="form-control" type="password" name="password" id="password" required>
+    </div>
+    <div class="my-3">
+        <label for="username">Имя</label>
+        <input class="form-control" type="text" name="first_name" id="first_name" required>
+    </div>
+    <div class="my-3">
+        <label for="username">Фамилия</label>
+        <input class="form-control" type="text" name="last_name" id="last_name" required>
+    </div>
+    <div class="my-3">
+        <label for="role">Роль</label>
+        <select class="form-select" name="role" id="role">
+            <option value="waiter">Официант</option>
+            <option value="bartender">Бармен</option>
+            <option value="admin">Администратор</option>
+        </select>
+    </div>
+    <div class="d-flex gap-2 my-4">
+        <button class="btn btn-primary w-50">Добавить</button>
+        <a href="/" class="btn btn-outline-primary w-50">Назад</a>
+    </div>
+</form>

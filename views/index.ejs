@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script defer src="/js/bootstrap.min.js"></script>
+    </head>
+    <body class="mx-auto my-3" style="max-width: 960px;">
+        <div class="container">
+            <header class="d-flex justify-content-between p-1">
+                <div class="lh-sm">
+                    <b><%= first_name %> <%= last_name %></b><br><small class="text-secondary"><%= { "waiter": "Официант", "bartender": "Бармен", "admin": "Администратор" }[role] %></small>
+                </div>
+                <div>
+                    <form method="post" action="/logout">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Выйти</button>
+                    </form>
+                </div>
+            </header>
+        </div>
+
+        <div class="container my-3">
+            <main class="p-1">
+                <%- include(view || '', { data: data }); %>
+            </main>
+        </div>
+    </body>
+</html>
+
+<script>
+    const error = document.querySelectorAll("#error");
+    const params = new URLSearchParams(window.location.search);
+    if (error) {
+        error.forEach((e) => {
+            e.style.display = "none";
+            if (params.get("error") == e.dataset.error) {
+                e.style.display = "block";
+            }
+        });
+    }
+</script>

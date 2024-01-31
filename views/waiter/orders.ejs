@@ -1,0 +1,37 @@
+<a class="btn btn-primary" href="/new-order">Новый заказ</a>
+
+<div class="d-flex flex-column gap-2 my-3">
+    <% for (let order of data.orders) { %>
+    <div class="card">
+        <div class="card-body d-flex flex-column">
+            <h6 class="card-title">
+                Заказ #<%= order.id %>
+                <% if (order.status == 0) { %><span class="badge bg-secondary mx-1">Ожидает</span> <% } %>
+                <% if (order.status == 1) { %><span class="badge bg-primary mx-1">В процессе</span> <% } %>
+                <% if (order.status == 2) { %><span class="badge bg-success mx-1">Выполнено</span> <% } %>
+            </h6>
+            <small class="text-secondary mb-3">Создан <%= order.date.split('-').join('.') %></small>
+
+            <ul class="list-group">
+            <% for (let item of JSON.parse(order.list)) { %>
+                <li class="list-group-item d-flex justify-content-between">
+                    <div><%= data.drinks.find((d) => d.id == item.id).name %> <small class="text-secondary"><%= item.amount %> шт.</small></div>
+                    <div><%= data.drinks.find((d) => d.id == item.id).price * item.amount %> ₽</div>
+                </li>
+            <% } %>
+            <li class="list-group-item d-flex justify-content-between">
+                <div class="text-secondary">Итого</div>
+                <div><b><%= order.total %> ₽</b></div>
+            </li>
+            </ul>
+
+            <% if (order.status == 0) { %><div>
+                <form method="post" action="/delete-order" class="mt-2">
+                    <input type="text" hidden name="orderid" id="orderid" value="<%= order.id %>">
+                    <button type="submit" class="btn btn-sm btn-outline-primary mt-2">Отменить</button>
+                </form>
+            </div> <% } %>
+        </div>
+    </div>
+    <% } %>
+</div>
